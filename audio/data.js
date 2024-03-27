@@ -101,6 +101,40 @@ var APP_DATA = {
         }
       ]
     },
+	{
+      "id": "0-",
+      "name": "往視聽大樓",
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 1024,
+      "initialViewParameters": {
+        "yaw": 1.9424361212993624,
+        "pitch": -0.2510190679440818,
+        "fov": 1.2599180821480807
+      },
+      "linkHotspots": [
+        {
+          "yaw": 1.9611842985997603,
+          "pitch": -0.2322708906436759,
+          "rotation": 0,
+          "target": "0-"
+        }
+      ],
+      "infoHotspots": []
+    },
     {
       "id": "2-",
       "name": "電腦二內部",

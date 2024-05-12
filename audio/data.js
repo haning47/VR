@@ -84,7 +84,7 @@ var APP_DATA = {
         {
           "yaw": -0.936526720374296,
           "pitch": -0.17615344467796135,
-          "title": "<span style=\"font-size: 13px; background-color: rgba(58, 68, 84, 0.8);\">視聽大樓五樓</span>",
+          "title": "視聽大樓五樓",
           "text": "<div>語言教室一</div><div>語言教室二</div>"
         },
         {

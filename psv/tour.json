@@ -6,8 +6,30 @@
     {
       "id": "home",
       "name": "首頁",
-      "start": "",
-      "scenes": []
+      "start": "home-0",
+      "scenes": [
+        {
+          "id": "home-0",
+          "name": "松山高中",
+          "file": "panos/home-0.jpg",
+          "view": {
+            "yaw": 170.33,
+            "pitch": 13.21
+          },
+          "links": [],
+          "tags": [
+            {
+              "yaw": -170.39,
+              "pitch": 15.7,
+              "title": "松山高中簡介",
+              "text": "前身為臺北市松山初級中學\n民國78年改制為高中\n校慶為 11月12日\n坐落在捷運市政府站附近 交通便利\n校徽",
+              "images": [
+                "images/home-0-1-1.jpg"
+              ]
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "campus",
@@ -24,8 +46,8 @@
           },
           "links": [
             {
-              "yaw": -98.5,
-              "pitch": 8.51,
+              "yaw": -98.4,
+              "pitch": 2.3,
               "to": "campus-2"
             },
             {
@@ -36,7 +58,8 @@
             {
               "yaw": -120.09,
               "pitch": -18.4,
-              "to": "campus-16"
+              "to": "campus-16",
+              "arrow": 180
             },
             {
               "yaw": 4.5,
@@ -78,7 +101,8 @@
             {
               "yaw": 18.26,
               "pitch": -31.38,
-              "to": "campus-0"
+              "to": "campus-0",
+              "arrow": 180
             },
             {
               "yaw": -160.58,
@@ -94,24 +118,42 @@
               "yaw": -43.44,
               "pitch": 8.04,
               "to": "campus-7"
-            },
-            {
-              "to": "campus-13"
-            },
-            {
-              "to": "campus-14-1"
-            },
-            {
-              "to": "campus-15-2"
-            },
-            {
-              "to": "campus-16"
             }
           ],
           "tags": [],
           "x": 186.22,
           "y": 145.12,
           "heading": 243.1
+        },
+        {
+          "id": "campus-1",
+          "name": "校門口北側",
+          "file": "panos/campus-1.jpg",
+          "view": {
+            "yaw": 18.8,
+            "pitch": -26.9
+          },
+          "links": [
+            {
+              "yaw": -26.4,
+              "pitch": -4.1,
+              "to": "campus-3"
+            },
+            {
+              "yaw": -164.3,
+              "pitch": -13.1,
+              "to": "campus-0"
+            },
+            {
+              "yaw": 13,
+              "pitch": -21.3,
+              "to": "campus-4"
+            }
+          ],
+          "tags": [],
+          "x": 229.37,
+          "y": 157.15,
+          "heading": 221.7
         },
         {
           "id": "campus-3",
@@ -125,7 +167,8 @@
             {
               "yaw": -13.95,
               "pitch": -31.28,
-              "to": "campus-1"
+              "to": "campus-1",
+              "arrow": 270
             },
             {
               "yaw": 75.4,
@@ -141,18 +184,6 @@
               "yaw": 164.5,
               "pitch": -4,
               "to": "campus-1"
-            },
-            {
-              "to": "campus-14-1"
-            },
-            {
-              "to": "campus-15-2"
-            },
-            {
-              "to": "campus-16"
-            },
-            {
-              "to": "campus-17"
             }
           ],
           "tags": [],
@@ -162,7 +193,7 @@
         },
         {
           "id": "campus-4",
-          "name": "往藝能大樓",
+          "name": "藝能小徑",
           "file": "panos/campus-4.jpg",
           "view": {
             "yaw": 97.11,
@@ -170,36 +201,30 @@
           },
           "links": [
             {
-              "to": "campus-1"
-            },
-            {
               "to": "campus-10"
             },
             {
-              "to": "campus-5"
+              "yaw": 88.4,
+              "pitch": -19.9,
+              "to": "campus-10"
             },
             {
-              "to": "campus-11-2"
-            },
-            {
-              "to": "campus-12"
-            },
-            {
-              "to": "campus-13"
-            },
-            {
-              "to": "campus-14-1"
-            },
-            {
-              "to": "campus-15-2"
-            },
-            {
-              "to": "campus-16"
+              "yaw": -5.2,
+              "pitch": -19.4,
+              "to": "campus-1"
             }
           ],
-          "tags": [],
-          "x": 236.3,
-          "y": 203.48
+          "tags": [
+            {
+              "yaw": 22.2,
+              "pitch": 5.3,
+              "title": "藝能小徑",
+              "text": "盡頭有黑板樹",
+              "images": []
+            }
+          ],
+          "x": 276.3,
+          "y": 232.9
         },
         {
           "id": "campus-5",
@@ -213,7 +238,8 @@
             {
               "yaw": 34.72,
               "pitch": -39.42,
-              "to": "campus-3"
+              "to": "campus-3",
+              "arrow": 180
             },
             {
               "yaw": -177.41,
@@ -223,28 +249,11 @@
             {
               "yaw": 1.97,
               "pitch": 9.34,
-              "to": "campus-9"
-            },
-            {
-              "to": "campus-4"
-            },
-            {
-              "to": "campus-10"
+              "to": "campus-9",
+              "arrow": 270
             },
             {
               "to": "campus-11-2"
-            },
-            {
-              "to": "campus-12"
-            },
-            {
-              "to": "campus-13"
-            },
-            {
-              "to": "campus-14-1"
-            },
-            {
-              "to": "campus-15-2"
             }
           ],
           "tags": [],
@@ -269,13 +278,8 @@
             {
               "yaw": -78.67,
               "pitch": 1.37,
-              "to": "campus-8"
-            },
-            {
-              "to": "campus-7"
-            },
-            {
-              "to": "campus-9"
+              "to": "campus-8",
+              "arrow": 45
             }
           ],
           "tags": [],
@@ -296,9 +300,6 @@
               "yaw": 23.41,
               "pitch": 3.56,
               "to": "campus-2"
-            },
-            {
-              "to": "campus-6"
             }
           ],
           "tags": [],
@@ -318,7 +319,8 @@
             {
               "yaw": -12.18,
               "pitch": 6.37,
-              "to": "campus-6"
+              "to": "campus-6",
+              "arrow": 315
             },
             {
               "to": "campus-9",
@@ -356,21 +358,13 @@
             {
               "yaw": 25.7,
               "pitch": -0.23,
-              "to": "campus-10"
+              "to": "campus-10",
+              "arrow": 45
             },
             {
               "yaw": -134.01,
               "pitch": -4.94,
               "to": "campus-8"
-            },
-            {
-              "to": "campus-6"
-            },
-            {
-              "to": "campus-11-2"
-            },
-            {
-              "to": "campus-13"
             }
           ],
           "tags": [],
@@ -390,12 +384,14 @@
             {
               "yaw": 0.17,
               "pitch": 12.06,
-              "to": "campus-4"
+              "to": "campus-4",
+              "arrow": 90
             },
             {
               "yaw": -50.54,
               "pitch": 25.53,
-              "to": "campus-12"
+              "to": "campus-12",
+              "arrow": 90
             },
             {
               "yaw": -178.02,
@@ -405,13 +401,8 @@
             {
               "yaw": 30.07,
               "pitch": -14.04,
-              "to": "campus-9"
-            },
-            {
-              "to": "campus-5"
-            },
-            {
-              "to": "campus-11-2"
+              "to": "campus-9",
+              "arrow": 135
             }
           ],
           "tags": [],
@@ -436,22 +427,11 @@
             {
               "yaw": 75,
               "pitch": -27.09,
-              "to": "campus-15-2"
-            },
-            {
-              "to": "campus-4"
+              "to": "campus-15-2",
+              "arrow": 135
             },
             {
               "to": "campus-5"
-            },
-            {
-              "to": "campus-9"
-            },
-            {
-              "to": "campus-10"
-            },
-            {
-              "to": "campus-13"
             }
           ],
           "tags": [],
@@ -471,18 +451,14 @@
             {
               "yaw": 169.14,
               "pitch": -9.19,
-              "to": "campus-10"
+              "to": "campus-10",
+              "arrow": 45
             },
             {
               "yaw": 110.27,
               "pitch": 1.21,
-              "to": "campus-11-2"
-            },
-            {
-              "to": "campus-4"
-            },
-            {
-              "to": "campus-5"
+              "to": "campus-11-2",
+              "arrow": 270
             }
           ],
           "tags": [],
@@ -502,38 +478,20 @@
             {
               "yaw": 175.62,
               "pitch": -7.2,
-              "to": "campus-15-2"
+              "to": "campus-15-2",
+              "arrow": 270
             },
             {
               "yaw": 32.59,
               "pitch": 4.82,
-              "to": "campus-6"
+              "to": "campus-6",
+              "arrow": 45
             },
             {
               "yaw": 96.63,
               "pitch": -27.56,
-              "to": "campus-15-2"
-            },
-            {
-              "to": "campus-0"
-            },
-            {
-              "to": "campus-2"
-            },
-            {
-              "to": "campus-4"
-            },
-            {
-              "to": "campus-5"
-            },
-            {
-              "to": "campus-9"
-            },
-            {
-              "to": "campus-11-2"
-            },
-            {
-              "to": "campus-14-1"
+              "to": "campus-15-2",
+              "arrow": 90
             }
           ],
           "tags": [],
@@ -553,30 +511,14 @@
             {
               "yaw": 106.28,
               "pitch": -9.9,
-              "to": "campus-15-2"
+              "to": "campus-15-2",
+              "arrow": 45
             },
             {
               "yaw": 59.65,
               "pitch": -1.06,
-              "to": "campus-0"
-            },
-            {
-              "to": "campus-2"
-            },
-            {
-              "to": "campus-3"
-            },
-            {
-              "to": "campus-4"
-            },
-            {
-              "to": "campus-5"
-            },
-            {
-              "to": "campus-13"
-            },
-            {
-              "to": "campus-16"
+              "to": "campus-0",
+              "arrow": 45
             }
           ],
           "tags": [],
@@ -596,32 +538,19 @@
             {
               "yaw": -121.41,
               "pitch": -11.01,
-              "to": "campus-14-1"
+              "to": "campus-14-1",
+              "arrow": 45
             },
             {
               "yaw": -9.51,
               "pitch": -6.3,
-              "to": "campus-11-2"
+              "to": "campus-11-2",
+              "arrow": 45
             },
             {
               "yaw": -15.02,
               "pitch": 13.81,
               "to": "campus-13"
-            },
-            {
-              "to": "campus-2"
-            },
-            {
-              "to": "campus-3"
-            },
-            {
-              "to": "campus-4"
-            },
-            {
-              "to": "campus-5"
-            },
-            {
-              "to": "campus-16"
             }
           ],
           "tags": [],
@@ -646,27 +575,14 @@
             {
               "yaw": 38.29,
               "pitch": -20.77,
-              "to": "campus-17"
+              "to": "campus-17",
+              "arrow": 135
             },
             {
               "yaw": -135.41,
               "pitch": -3.45,
-              "to": "campus-17"
-            },
-            {
-              "to": "campus-2"
-            },
-            {
-              "to": "campus-3"
-            },
-            {
-              "to": "campus-4"
-            },
-            {
-              "to": "campus-14-1"
-            },
-            {
-              "to": "campus-15-2"
+              "to": "campus-17",
+              "arrow": 315
             }
           ],
           "tags": [],
@@ -686,10 +602,8 @@
             {
               "yaw": 54.93,
               "pitch": -13.06,
-              "to": "campus-16"
-            },
-            {
-              "to": "campus-3"
+              "to": "campus-16",
+              "arrow": 315
             }
           ],
           "tags": [
@@ -704,57 +618,6 @@
           "x": 301.25,
           "y": 152.04,
           "heading": 202.5
-        },
-        {
-          "id": "campus-1",
-          "name": "校門口北側",
-          "file": "panos/campus-1.jpg",
-          "view": {
-            "yaw": 18.8,
-            "pitch": -26.9
-          },
-          "links": [
-            {
-              "yaw": -26.4,
-              "pitch": -4.1,
-              "to": "campus-3"
-            },
-            {
-              "yaw": 22.1,
-              "pitch": -15,
-              "to": "campus-4"
-            },
-            {
-              "yaw": -164.3,
-              "pitch": -13.1,
-              "to": "campus-0"
-            }
-          ],
-          "tags": [],
-          "x": 229.37,
-          "y": 157.15,
-          "heading": 221.7
-        },
-        {
-          "id": "home-0",
-          "name": "松山高中",
-          "file": "panos/home-0.jpg",
-          "view": {
-            "yaw": 170.33,
-            "pitch": 13.21
-          },
-          "links": [],
-          "tags": [
-            {
-              "yaw": -170.39,
-              "pitch": 15.7,
-              "title": "松山高中簡介",
-              "text": "前身為臺北市松山初級中學\n民國78年改制為高中\n校慶為 11月12日\n坐落在捷運市政府站附近 交通便利\n校徽",
-              "images": [
-                "images/home-0-1-1.jpg"
-              ]
-            }
-          ]
         }
       ],
       "plan": {
@@ -803,7 +666,8 @@
             {
               "yaw": -169.73,
               "pitch": -17.24,
-              "to": "audio-0-4"
+              "to": "audio-0-4",
+              "arrow": 45
             }
           ],
           "tags": [
@@ -859,7 +723,8 @@
             {
               "yaw": -141.49,
               "pitch": 2.07,
-              "to": "audio-3"
+              "to": "audio-3",
+              "arrow": 90
             }
           ],
           "tags": []
@@ -876,7 +741,8 @@
             {
               "yaw": 20.03,
               "pitch": 5.8,
-              "to": "audio-2"
+              "to": "audio-2",
+              "arrow": 270
             }
           ],
           "tags": []

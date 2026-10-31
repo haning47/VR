@@ -6,30 +6,8 @@
     {
       "id": "home",
       "name": "首頁",
-      "start": "home-0",
-      "scenes": [
-        {
-          "id": "home-0",
-          "name": "松山高中",
-          "file": "panos/home-0.jpg",
-          "view": {
-            "yaw": 170.33,
-            "pitch": 13.21
-          },
-          "links": [],
-          "tags": [
-            {
-              "yaw": -170.39,
-              "pitch": 15.7,
-              "title": "松山高中簡介",
-              "text": "前身為臺北市松山初級中學\n民國78年改制為高中\n校慶為 11月12日\n坐落在捷運市政府站附近 交通便利\n校徽",
-              "images": [
-                "images/home-0-1-1.jpg"
-              ]
-            }
-          ]
-        }
-      ]
+      "start": "",
+      "scenes": []
     },
     {
       "id": "campus",
@@ -41,8 +19,8 @@
           "name": "校門口",
           "file": "panos/campus-0.jpg",
           "view": {
-            "yaw": -99.18,
-            "pitch": 12.38
+            "yaw": -97.1,
+            "pitch": 3.4
           },
           "links": [
             {
@@ -51,8 +29,8 @@
               "to": "campus-2"
             },
             {
-              "yaw": 42.6,
-              "pitch": -5.5,
+              "yaw": 50.7,
+              "pitch": -10.9,
               "to": "campus-1"
             },
             {
@@ -61,16 +39,9 @@
               "to": "campus-16"
             },
             {
-              "to": "campus-3"
-            },
-            {
-              "to": "campus-4"
-            },
-            {
-              "to": "campus-13"
-            },
-            {
-              "to": "campus-15-2"
+              "yaw": 4.5,
+              "pitch": 2.5,
+              "to": "campus-14-1"
             }
           ],
           "tags": [
@@ -93,7 +64,7 @@
           ],
           "x": 214.04,
           "y": 145.68,
-          "heading": 9.0
+          "heading": 9
         },
         {
           "id": "campus-2",
@@ -172,9 +143,6 @@
               "to": "campus-1"
             },
             {
-              "to": "campus-0"
-            },
-            {
               "to": "campus-14-1"
             },
             {
@@ -206,9 +174,6 @@
             },
             {
               "to": "campus-10"
-            },
-            {
-              "to": "campus-0"
             },
             {
               "to": "campus-5"
@@ -644,9 +609,6 @@
               "to": "campus-13"
             },
             {
-              "to": "campus-0"
-            },
-            {
               "to": "campus-2"
             },
             {
@@ -772,6 +734,27 @@
           "x": 229.37,
           "y": 157.15,
           "heading": 221.7
+        },
+        {
+          "id": "home-0",
+          "name": "松山高中",
+          "file": "panos/home-0.jpg",
+          "view": {
+            "yaw": 170.33,
+            "pitch": 13.21
+          },
+          "links": [],
+          "tags": [
+            {
+              "yaw": -170.39,
+              "pitch": 15.7,
+              "title": "松山高中簡介",
+              "text": "前身為臺北市松山初級中學\n民國78年改制為高中\n校慶為 11月12日\n坐落在捷運市政府站附近 交通便利\n校徽",
+              "images": [
+                "images/home-0-1-1.jpg"
+              ]
+            }
+          ]
         }
       ],
       "plan": {

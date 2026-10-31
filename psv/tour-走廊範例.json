@@ -1,0 +1,204 @@
+{
+  "title": "走廊範例",
+  "cameraHeight": 1.5,
+  "start": "entrance",
+  "areas": [
+    {
+      "id": "hall",
+      "name": "一樓走廊",
+      "start": "entrance",
+      "plan": {
+        "image": "plans/hall.jpg",
+        "imgW": 2000,
+        "imgH": 1000,
+        "scale": 0.01
+      },
+      "scenes": [
+        {
+          "id": "entrance",
+          "name": "穿堂入口",
+          "file": "panos/entrance.jpg",
+          "x": 3.2,
+          "y": 3.4,
+          "heading": 90,
+          "view": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "links": [
+            {
+              "to": "corridor"
+            },
+            {
+              "to": "board"
+            }
+          ],
+          "tags": [
+            {
+              "yaw": -56.3,
+              "pitch": 19.5,
+              "title": "圖書館",
+              "text": "開放時間：週一至週五 07:30–17:00。\n借書證就是學生證，一次可借 5 本，借期兩週。",
+              "images": [
+                "images/tag-library.jpg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "corridor",
+          "name": "走廊中段",
+          "file": "panos/corridor.jpg",
+          "x": 7.8,
+          "y": 3.0,
+          "heading": 90,
+          "view": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "links": [
+            {
+              "to": "entrance"
+            },
+            {
+              "to": "board"
+            },
+            {
+              "to": "history"
+            }
+          ],
+          "tags": [
+            {
+              "yaw": -137.0,
+              "pitch": 14.0,
+              "title": "圖書館",
+              "text": "開放時間：週一至週五 07:30–17:00。\n借書證就是學生證，一次可借 5 本，借期兩週。",
+              "images": [
+                "images/tag-library.jpg"
+              ]
+            },
+            {
+              "yaw": -41.2,
+              "pitch": 3.4,
+              "title": "公布欄",
+              "text": "學校的各項公告會張貼在這裡：考試時程、社團活動、防災演練與失物招領。\n公告期限屆滿後由學務處統一撤下。",
+              "images": [
+                "images/tag-board.jpg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "board",
+          "name": "公布欄前",
+          "file": "panos/board.jpg",
+          "x": 11.0,
+          "y": 3.9,
+          "heading": 20,
+          "view": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "links": [
+            {
+              "to": "entrance"
+            },
+            {
+              "to": "corridor"
+            },
+            {
+              "to": "history"
+            }
+          ],
+          "tags": [
+            {
+              "yaw": -20.0,
+              "pitch": 7.5,
+              "title": "公布欄",
+              "text": "學校的各項公告會張貼在這裡：考試時程、社團活動、防災演練與失物招領。\n公告期限屆滿後由學務處統一撤下。",
+              "images": [
+                "images/tag-board.jpg"
+              ]
+            },
+            {
+              "yaw": 47.6,
+              "pitch": 11.6,
+              "title": "校史室",
+              "text": "收藏歷屆畢業紀念冊、老照片與校務文件。\n每月第一個週三中午開放參觀，團體參訪請先洽圖書館。",
+              "images": [
+                "images/tag-history.jpg"
+              ]
+            },
+            {
+              "yaw": 73.8,
+              "pitch": -2.7,
+              "title": "獎盃櫃",
+              "text": "陳列歷年校際競賽的獎盃與獎牌。",
+              "images": [
+                "images/tag-cabinet.jpg"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "history",
+          "name": "校史室前",
+          "file": "panos/history.jpg",
+          "x": 15.6,
+          "y": 3.5,
+          "heading": 135,
+          "view": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "links": [
+            {
+              "to": "corridor"
+            },
+            {
+              "to": "board"
+            }
+          ],
+          "tags": [
+            {
+              "yaw": 161.6,
+              "pitch": 2.8,
+              "title": "公布欄",
+              "text": "學校的各項公告會張貼在這裡：考試時程、社團活動、防災演練與失物招領。\n公告期限屆滿後由學務處統一撤下。",
+              "images": [
+                "images/tag-board.jpg"
+              ]
+            },
+            {
+              "yaw": -135.0,
+              "pitch": 23.9,
+              "title": "校史室",
+              "text": "收藏歷屆畢業紀念冊、老照片與校務文件。\n每月第一個週三中午開放參觀，團體參訪請先洽圖書館。",
+              "images": [
+                "images/tag-history.jpg"
+              ]
+            },
+            {
+              "yaw": -43.0,
+              "pitch": -7.0,
+              "title": "獎盃櫃",
+              "text": "陳列歷年校際競賽的獎盃與獎牌。",
+              "images": [
+                "images/tag-cabinet.jpg"
+              ]
+            },
+            {
+              "yaw": -1.5,
+              "pitch": -19.9,
+              "title": "滅火器",
+              "text": "標籤也可以用來標示設備位置。\n這裡示範標出走廊盡頭的滅火器。",
+              "images": [
+                "images/tag-extinguisher.jpg"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

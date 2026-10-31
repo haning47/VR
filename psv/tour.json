@@ -51,14 +51,26 @@
               "to": "campus-2"
             },
             {
-              "yaw": -51.62,
-              "pitch": -8.27,
+              "yaw": 42.6,
+              "pitch": -5.5,
               "to": "campus-1"
             },
             {
               "yaw": -120.09,
               "pitch": -18.4,
               "to": "campus-16"
+            },
+            {
+              "to": "campus-3"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-13"
+            },
+            {
+              "to": "campus-15-2"
             }
           ],
           "tags": [
@@ -78,39 +90,10 @@
               "text": "一樓總務處 健康中心\n二樓教務處\n三樓校長室\n四樓輔導室\n五樓校史室",
               "images": []
             }
-          ]
-        },
-        {
-          "id": "campus-1",
-          "name": "校門口北側",
-          "file": "panos/campus-1.jpg",
-          "view": {
-            "yaw": -33.88,
-            "pitch": -6.48
-          },
-          "links": [
-            {
-              "yaw": -17.69,
-              "pitch": -2.35,
-              "to": "campus-3"
-            },
-            {
-              "yaw": 4.9,
-              "pitch": -14.83,
-              "to": "campus-0"
-            },
-            {
-              "yaw": 17.56,
-              "pitch": 2.9,
-              "to": "campus-4"
-            },
-            {
-              "yaw": -164.24,
-              "pitch": -5.23,
-              "to": "campus-0"
-            }
           ],
-          "tags": []
+          "x": 214.04,
+          "y": 145.68,
+          "heading": 9.0
         },
         {
           "id": "campus-2",
@@ -140,17 +123,32 @@
               "yaw": -43.44,
               "pitch": 8.04,
               "to": "campus-7"
+            },
+            {
+              "to": "campus-13"
+            },
+            {
+              "to": "campus-14-1"
+            },
+            {
+              "to": "campus-15-2"
+            },
+            {
+              "to": "campus-16"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 186.22,
+          "y": 145.12,
+          "heading": 243.1
         },
         {
           "id": "campus-3",
           "name": "往中庭",
           "file": "panos/campus-3.jpg",
           "view": {
-            "yaw": 0.0,
-            "pitch": -0.0
+            "yaw": 0,
+            "pitch": 0
           },
           "links": [
             {
@@ -159,17 +157,40 @@
               "to": "campus-1"
             },
             {
-              "yaw": 166.31,
-              "pitch": 1.48,
+              "yaw": 75.4,
+              "pitch": -20.2,
               "to": "campus-4"
             },
             {
               "yaw": -20.36,
               "pitch": 5.05,
               "to": "campus-5"
+            },
+            {
+              "yaw": 164.5,
+              "pitch": -4,
+              "to": "campus-1"
+            },
+            {
+              "to": "campus-0"
+            },
+            {
+              "to": "campus-14-1"
+            },
+            {
+              "to": "campus-15-2"
+            },
+            {
+              "to": "campus-16"
+            },
+            {
+              "to": "campus-17"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 254.81,
+          "y": 192.69,
+          "heading": 227.2
         },
         {
           "id": "campus-4",
@@ -181,17 +202,39 @@
           },
           "links": [
             {
-              "yaw": 154.12,
-              "pitch": -25.56,
               "to": "campus-1"
             },
             {
-              "yaw": 92.58,
-              "pitch": 8.51,
               "to": "campus-10"
+            },
+            {
+              "to": "campus-0"
+            },
+            {
+              "to": "campus-5"
+            },
+            {
+              "to": "campus-11-2"
+            },
+            {
+              "to": "campus-12"
+            },
+            {
+              "to": "campus-13"
+            },
+            {
+              "to": "campus-14-1"
+            },
+            {
+              "to": "campus-15-2"
+            },
+            {
+              "to": "campus-16"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 236.3,
+          "y": 203.48
         },
         {
           "id": "campus-5",
@@ -216,17 +259,41 @@
               "yaw": 1.97,
               "pitch": 9.34,
               "to": "campus-9"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-10"
+            },
+            {
+              "to": "campus-11-2"
+            },
+            {
+              "to": "campus-12"
+            },
+            {
+              "to": "campus-13"
+            },
+            {
+              "to": "campus-14-1"
+            },
+            {
+              "to": "campus-15-2"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 197.92,
+          "y": 214.61,
+          "heading": 279.5
         },
         {
           "id": "campus-6",
           "name": "操場北側",
           "file": "panos/campus-6.jpg",
           "view": {
-            "yaw": 0.0,
-            "pitch": -0.0
+            "yaw": 0,
+            "pitch": 0
           },
           "links": [
             {
@@ -238,26 +305,41 @@
               "yaw": -78.67,
               "pitch": 1.37,
               "to": "campus-8"
+            },
+            {
+              "to": "campus-7"
+            },
+            {
+              "to": "campus-9"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 90.05,
+          "y": 197.46,
+          "heading": 103.2
         },
         {
           "id": "campus-7",
           "name": "操場南側",
           "file": "panos/campus-7.jpg",
           "view": {
-            "yaw": 0.0,
-            "pitch": -0.0
+            "yaw": 0,
+            "pitch": 0
           },
           "links": [
             {
               "yaw": 23.41,
               "pitch": 3.56,
               "to": "campus-2"
+            },
+            {
+              "to": "campus-6"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 86.07,
+          "y": 133.76,
+          "heading": 60.1
         },
         {
           "id": "campus-8",
@@ -274,14 +356,9 @@
               "to": "campus-6"
             },
             {
-              "yaw": 169.13,
-              "pitch": 3.2,
-              "to": "campus-4"
-            },
-            {
-              "yaw": 45.48,
-              "pitch": -22.17,
-              "to": "campus-9"
+              "to": "campus-9",
+              "yaw": -128,
+              "pitch": -43.3
             }
           ],
           "tags": [
@@ -294,20 +371,21 @@
                 "images/campus-8-1-1.jpg"
               ]
             }
-          ]
+          ],
+          "x": 113.1,
+          "y": 235.62,
+          "heading": 249.2
         },
         {
           "id": "campus-9",
           "name": "往視聽大樓",
           "file": "panos/campus-9.jpg",
           "view": {
-            "yaw": 0.0,
-            "pitch": -0.0
+            "yaw": 0,
+            "pitch": 0
           },
           "links": [
             {
-              "yaw": 3.38,
-              "pitch": -32.06,
               "to": "campus-8"
             },
             {
@@ -319,9 +397,21 @@
               "yaw": -134.01,
               "pitch": -4.94,
               "to": "campus-8"
+            },
+            {
+              "to": "campus-6"
+            },
+            {
+              "to": "campus-11-2"
+            },
+            {
+              "to": "campus-13"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 124.68,
+          "y": 217.79,
+          "heading": 65.4
         },
         {
           "id": "campus-10",
@@ -351,9 +441,18 @@
               "yaw": 30.07,
               "pitch": -14.04,
               "to": "campus-9"
+            },
+            {
+              "to": "campus-5"
+            },
+            {
+              "to": "campus-11-2"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 187.81,
+          "y": 261.28,
+          "heading": 149.6
         },
         {
           "id": "campus-11-2",
@@ -370,12 +469,30 @@
               "to": "campus-12"
             },
             {
-              "yaw": 75.0,
+              "yaw": 75,
               "pitch": -27.09,
               "to": "campus-15-2"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-5"
+            },
+            {
+              "to": "campus-9"
+            },
+            {
+              "to": "campus-10"
+            },
+            {
+              "to": "campus-13"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 181.23,
+          "y": 228.35,
+          "heading": 28.7
         },
         {
           "id": "campus-12",
@@ -395,9 +512,18 @@
               "yaw": 110.27,
               "pitch": 1.21,
               "to": "campus-11-2"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-5"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 202.23,
+          "y": 253.33,
+          "heading": 119.8
         },
         {
           "id": "campus-13",
@@ -422,9 +548,33 @@
               "yaw": 96.63,
               "pitch": -27.56,
               "to": "campus-15-2"
+            },
+            {
+              "to": "campus-0"
+            },
+            {
+              "to": "campus-2"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-5"
+            },
+            {
+              "to": "campus-9"
+            },
+            {
+              "to": "campus-11-2"
+            },
+            {
+              "to": "campus-14-1"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 174.98,
+          "y": 181.57,
+          "heading": 298.4
         },
         {
           "id": "campus-14-1",
@@ -444,9 +594,30 @@
               "yaw": 59.65,
               "pitch": -1.06,
               "to": "campus-0"
+            },
+            {
+              "to": "campus-2"
+            },
+            {
+              "to": "campus-3"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-5"
+            },
+            {
+              "to": "campus-13"
+            },
+            {
+              "to": "campus-16"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 221.99,
+          "y": 168.51,
+          "heading": 161.2
         },
         {
           "id": "campus-15-2",
@@ -471,21 +642,42 @@
               "yaw": -15.02,
               "pitch": 13.81,
               "to": "campus-13"
+            },
+            {
+              "to": "campus-0"
+            },
+            {
+              "to": "campus-2"
+            },
+            {
+              "to": "campus-3"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-5"
+            },
+            {
+              "to": "campus-16"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 211.2,
+          "y": 172.26,
+          "heading": 292.3
         },
         {
           "id": "campus-16",
           "name": "松高前",
           "file": "panos/campus-16.jpg",
           "view": {
-            "yaw": 0.0,
-            "pitch": -0.0
+            "yaw": 0,
+            "pitch": 0
           },
           "links": [
             {
-              "yaw": -11.0,
+              "yaw": -11,
               "pitch": 3.31,
               "to": "campus-0"
             },
@@ -498,9 +690,27 @@
               "yaw": -135.41,
               "pitch": -3.45,
               "to": "campus-17"
+            },
+            {
+              "to": "campus-2"
+            },
+            {
+              "to": "campus-3"
+            },
+            {
+              "to": "campus-4"
+            },
+            {
+              "to": "campus-14-1"
+            },
+            {
+              "to": "campus-15-2"
             }
           ],
-          "tags": []
+          "tags": [],
+          "x": 233.46,
+          "y": 136.94,
+          "heading": 305.1
         },
         {
           "id": "campus-17",
@@ -515,6 +725,9 @@
               "yaw": 54.93,
               "pitch": -13.06,
               "to": "campus-16"
+            },
+            {
+              "to": "campus-3"
             }
           ],
           "tags": [
@@ -525,9 +738,48 @@
               "text": "本公園屬中生代公園。公園面積：1585平方公尺。於民國76年開闢，84年7月1日接收",
               "images": []
             }
-          ]
+          ],
+          "x": 301.25,
+          "y": 152.04,
+          "heading": 202.5
+        },
+        {
+          "id": "campus-1",
+          "name": "校門口北側",
+          "file": "panos/campus-1.jpg",
+          "view": {
+            "yaw": 18.8,
+            "pitch": -26.9
+          },
+          "links": [
+            {
+              "yaw": -26.4,
+              "pitch": -4.1,
+              "to": "campus-3"
+            },
+            {
+              "yaw": 22.1,
+              "pitch": -15,
+              "to": "campus-4"
+            },
+            {
+              "yaw": -164.3,
+              "pitch": -13.1,
+              "to": "campus-0"
+            }
+          ],
+          "tags": [],
+          "x": 229.37,
+          "y": 157.15,
+          "heading": 221.7
         }
-      ]
+      ],
+      "plan": {
+        "image": "plans/campus-mvwiwx94.jpg",
+        "imgW": 758,
+        "imgH": 740,
+        "scale": 0.449406
+      }
     },
     {
       "id": "audio",
@@ -634,8 +886,8 @@
           "name": "電二走廊",
           "file": "panos/audio-3.jpg",
           "view": {
-            "yaw": 0.0,
-            "pitch": -0.0
+            "yaw": 0,
+            "pitch": 0
           },
           "links": [
             {

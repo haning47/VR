@@ -1,6 +1,6 @@
 {
   "title": "松山高中720環景",
-  "cameraHeight": 1.5,
+  "cameraHeight": 1,
   "start": "home-0",
   "areas": [
     {
@@ -16,16 +16,23 @@
             "yaw": 170.33,
             "pitch": 13.21
           },
-          "links": [],
+          "links": [
+            {
+              "yaw": 152.8,
+              "pitch": 0.4,
+              "to": "campus-0"
+            }
+          ],
           "tags": [
             {
               "yaw": -170.39,
               "pitch": 15.7,
               "title": "松山高中簡介",
-              "text": "前身為臺北市松山初級中學\n民國78年改制為高中\n校慶為 11月12日\n坐落在捷運市政府站附近 交通便利\n校徽",
+              "text": "前身為臺北市松山初級中學\n民國78年改制為高中\n校慶為 11月12日\n坐落在捷運市政府站附近 交通便利\n [松山高中官網](https://www.sssh.tp.edu.tw)",
               "images": [
                 "images/home-0-1-1.jpg"
-              ]
+              ],
+              "video": "https://www.youtube.com/watch?v=VMdzmz98zMk"
             }
           ]
         }
@@ -56,8 +63,8 @@
               "to": "campus-1"
             },
             {
-              "yaw": -120.09,
-              "pitch": -18.4,
+              "yaw": 145.3,
+              "pitch": -20.6,
               "to": "campus-16",
               "arrow": 180
             },
@@ -85,9 +92,10 @@
               "images": []
             }
           ],
-          "x": 214.04,
-          "y": 145.68,
-          "heading": 9
+          "x": 210.24,
+          "y": 146.54,
+          "heading": 17,
+          "fixedView": true
         },
         {
           "id": "campus-2",
@@ -151,8 +159,8 @@
             }
           ],
           "tags": [],
-          "x": 229.37,
-          "y": 157.15,
+          "x": 233.53,
+          "y": 153.22,
           "heading": 221.7
         },
         {
@@ -223,8 +231,9 @@
               "images": []
             }
           ],
-          "x": 276.3,
-          "y": 232.9
+          "x": 291.27,
+          "y": 220.49,
+          "heading": 220.2
         },
         {
           "id": "campus-5",
@@ -573,8 +582,8 @@
               "to": "campus-0"
             },
             {
-              "yaw": 38.29,
-              "pitch": -20.77,
+              "yaw": -140,
+              "pitch": -15.1,
               "to": "campus-17",
               "arrow": 135
             },
@@ -586,9 +595,9 @@
             }
           ],
           "tags": [],
-          "x": 233.46,
-          "y": 136.94,
-          "heading": 305.1
+          "x": 274.78,
+          "y": 151.97,
+          "heading": 275.9
         },
         {
           "id": "campus-17",

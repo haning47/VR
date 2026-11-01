@@ -1,0 +1,48 @@
+{
+  "title": "環景導覽",
+  "cameraHeight": 1,
+  "start": "s-mvxa4k4qzsw",
+  "areas": [
+    {
+      "id": "area-mvxa3bo2dpl",
+      "name": "圖書館",
+      "start": "s-mvxa4k4qzsw",
+      "scenes": [
+        {
+          "id": "s-mvxa4k4qzsw",
+          "name": "圖書館1樓",
+          "file": "panos/s-mvxa4k4qzsw.jpg",
+          "view": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "links": [
+            {
+              "yaw": -163.7,
+              "pitch": -19.9,
+              "to": "s-mvxa4kdl4sn"
+            }
+          ],
+          "tags": []
+        },
+        {
+          "id": "s-mvxa4kdl4sn",
+          "name": "圖書館2樓",
+          "file": "panos/s-mvxa4kdl4sn.jpg",
+          "view": {
+            "yaw": 0,
+            "pitch": 0
+          },
+          "links": [
+            {
+              "yaw": -114.5,
+              "pitch": -18.6,
+              "to": "s-mvxa4k4qzsw"
+            }
+          ],
+          "tags": []
+        }
+      ]
+    }
+  ]
+}

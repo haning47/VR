@@ -744,6 +744,14 @@ function vrExitPlate() {
     vrLabel(g, '離開 VR', w / 2, h / 2, w - 30, 52);
   });
 }
+/* 每支手機自己的 VR 設定（左右距離、畫面大小），存在瀏覽器裡 */
+const VR_CFG_KEY = 'sssh-tour-vr';
+function loadVrCfg() {
+  try { return JSON.parse(localStorage.getItem(VR_CFG_KEY)) || {}; } catch (e) { return {}; }
+}
+function saveVrCfg(cfg) {
+  try { localStorage.setItem(VR_CFG_KEY, JSON.stringify(cfg)); } catch (e) { /* 無痕模式等存不了 */ }
+}
 function angDist(a, b) {
   const c = Math.sin(a.pitch) * Math.sin(b.pitch) + Math.cos(a.pitch) * Math.cos(b.pitch) * Math.cos(a.yaw - b.yaw);
   return Math.acos(Math.max(-1, Math.min(1, c)));
@@ -781,6 +789,7 @@ export class CardboardVR {
     this.viewer.addEventListener('fullscreen', (e) => {
       if (this.on && !e.fullscreenEnabled) this.stereo.stop();
     });
+    this.cfg = loadVrCfg();
     this.reticles = [25, 75].map((x) => {
       const el = document.createElement('div');
       el.className = 'vr-reticle';
@@ -790,6 +799,105 @@ export class CardboardVR {
       this.viewer.container.appendChild(el);
       return el;
     });
+    this.buildSetup();
+  }
+
+  /* 左右眼畫面的位置：兩個畫面中心相距 sep 像素（對準 Cardboard 的兩片鏡片） */
+  layout() {
+    const W = this.viewer.container.clientWidth || window.innerWidth;
+    const H = this.viewer.container.clientHeight || window.innerHeight;
+    const def = Math.round(W * 0.42);
+    const sep = Math.round(Math.max(W * 0.25, Math.min(W * 0.6, this.cfg.sep || def)));
+    const eyeW = Math.max(1, Math.min(sep, W - sep));
+    return { W, H, sep, def, eyeW, cx: [W / 2 - sep / 2, W / 2 + sep / 2] };
+  }
+
+  /* 取代官方的左右眼繪圖：兩眼用同一個相機（全景照沒有立體深度，這樣不會重影），位置照 layout() */
+  effect(renderer) {
+    const vr = this;
+    return {
+      render(scene, camera) {
+        const L = vr.layout();
+        const aspect = camera.aspect;
+        camera.aspect = L.eyeW / L.H;
+        camera.updateProjectionMatrix();
+        const autoClear = renderer.autoClear;
+        renderer.autoClear = false;
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, L.W, L.H);
+        renderer.clear();
+        renderer.setScissorTest(true);
+        for (const cx of L.cx) {
+          const x = Math.round(cx - L.eyeW / 2);
+          renderer.setScissor(x, 0, L.eyeW, L.H);
+          renderer.setViewport(x, 0, L.eyeW, L.H);
+          renderer.render(scene, camera);
+        }
+        renderer.setScissorTest(false);
+        renderer.setViewport(0, 0, L.W, L.H);
+        renderer.autoClear = autoClear;
+        camera.aspect = aspect;
+        camera.updateProjectionMatrix();
+      },
+    };
+  }
+
+  /* 「⚙ 調整眼鏡」：拿出手機時調整左右距離和畫面大小 */
+  buildSetup() {
+    const c = this.viewer.container;
+    const stop = (el) => {
+      for (const t of ['pointerdown', 'pointerup', 'mousedown', 'mouseup', 'touchstart', 'touchend', 'click', 'dblclick', 'wheel']) {
+        el.addEventListener(t, (e) => e.stopPropagation());
+      }
+    };
+    this.gear = document.createElement('button');
+    this.gear.type = 'button';
+    this.gear.className = 'vr-gear';
+    this.gear.textContent = '⚙ 調整眼鏡';
+    this.gear.addEventListener('click', () => this.showSetup(this.setup.hidden));
+    stop(this.gear);
+    c.appendChild(this.gear);
+    this.setup = document.createElement('div');
+    this.setup.className = 'vr-setup';
+    this.setup.hidden = true;
+    this.setup.innerHTML = `
+      <div class="row"><span class="lbl">左右距離</span><button type="button" data-k="sep" data-d="-4">−</button><b data-v="sep"></b><button type="button" data-k="sep" data-d="4">＋</button></div>
+      <div class="row"><span class="lbl">畫面大小</span><button type="button" data-k="zoom" data-d="-5">−</button><b data-v="zoom"></b><button type="button" data-k="zoom" data-d="5">＋</button></div>
+      <p>放進眼鏡看：兩個圓點重疊成一個、人物不重影就對了。兩個點分太開就按「左右距離 −」。</p>
+      <div class="row"><button type="button" data-k="reset">預設</button><button type="button" data-k="done" class="ok">完成</button><button type="button" data-k="exit">離開 VR</button></div>`;
+    this.setup.addEventListener('click', (e) => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      const k = b.dataset.k, d = Number(b.dataset.d) || 0;
+      if (k === 'sep') this.cfg.sep = this.layout().sep + d;
+      else if (k === 'zoom') {
+        this.cfg.zoom = Math.max(0, Math.min(100, Math.round(this.viewer.getZoomLevel()) + d));
+        this.viewer.zoom(this.cfg.zoom);
+      } else if (k === 'reset') {
+        this.cfg = {};
+        if (this.zoomBefore != null) this.viewer.zoom(this.zoomBefore);
+      } else if (k === 'done') {
+        this.showSetup(false);
+        return;
+      } else if (k === 'exit') {
+        this.showSetup(false);
+        this.stereo.stop();
+        return;
+      }
+      saveVrCfg(this.cfg);
+      this.viewer.needsUpdate();
+      this.showSetup(true);
+    });
+    stop(this.setup);
+    c.appendChild(this.setup);
+  }
+
+  showSetup(show) {
+    this.setup.hidden = !show;
+    if (!show) return;
+    const L = this.layout();
+    this.setup.querySelector('[data-v="sep"]').textContent = L.sep === L.def ? `${L.sep}（預設）` : String(L.sep);
+    this.setup.querySelector('[data-v="zoom"]').textContent = String(Math.round(this.viewer.getZoomLevel()));
   }
 
   setOn(on) {
@@ -803,6 +911,14 @@ export class CardboardVR {
     this.needRelease = true;
     this.progress(0, false);
     this.nav.hideCursor?.();
+    if (on) {
+      this.viewer.renderer.setCustomRenderer((r) => this.effect(r));
+      this.zoomBefore = this.viewer.getZoomLevel();
+      if (this.cfg.zoom != null) this.viewer.zoom(this.cfg.zoom);
+    } else {
+      this.showSetup(false);
+      if (this.zoomBefore != null) this.viewer.zoom(this.zoomBefore);
+    }
     this.nav.refresh();
     if (on) requestAnimationFrame(this.loop);
   }
@@ -840,6 +956,8 @@ export class CardboardVR {
     requestAnimationFrame(this.loop);
     const dt = this.last ? Math.min(100, now - this.last) : 0;
     this.last = now;
+    const L = this.layout();
+    this.reticles.forEach((r, i) => { const x = Math.round(L.cx[i]) + 'px'; if (r.style.left !== x) r.style.left = x; });
     const p = this.viewer.getPosition();
     /* 「離開 VR」跟著轉到面前的方向，低頭時字才是正的 */
     if (p.pitch > rad(-45) && this.exit && Math.abs(p.yaw - this.exit.yaw) > 0.05 && now - (this.exitT || 0) > 300) {

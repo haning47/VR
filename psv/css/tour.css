@@ -103,6 +103,16 @@
 .vr-reticle .fg { fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 20px 20px; }
 .vr-reticle .dot { fill: #fff; stroke: rgba(0, 0, 0, 0.5); stroke-width: 1; }
 body.vr-on .bar, body.vr-on .map { display: none !important; }
+.vr-gear { display: none; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); z-index: 96; padding: 6px 12px; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 16px; background: rgba(0, 0, 0, 0.55); color: #fff; font: inherit; font-size: 13px; cursor: pointer; }
+.vr-active .vr-gear { display: block; }
+.vr-setup { position: absolute; top: 44px; left: 50%; transform: translateX(-50%); z-index: 97; width: min(420px, calc(100% - 24px)); padding: 12px; border-radius: 12px; background: rgba(12, 17, 15, 0.92); color: #fff; font-size: 14px; }
+.vr-setup[hidden] { display: none; }
+.vr-setup .row { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+.vr-setup .lbl { width: 5em; }
+.vr-setup b { min-width: 6.5em; text-align: center; font-weight: 500; }
+.vr-setup p { margin: 8px 0; color: #c9d2cd; font-size: 13px; line-height: 1.6; }
+.vr-setup button { min-width: 44px; min-height: 36px; padding: 4px 12px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 8px; background: rgba(255, 255, 255, 0.1); color: #fff; font: inherit; font-size: 15px; cursor: pointer; }
+.vr-setup button.ok { background: #f0b429; border-color: #f0b429; color: #241a04; }
 .under-panel { opacity: 0 !important; pointer-events: none !important; transition: opacity 0.15s; }
 .tag-panel h2 { margin: 4px 0 8px; font-size: 20px; letter-spacing: 0.04em; }
 .tag-panel p { margin: 0 0 6px; }

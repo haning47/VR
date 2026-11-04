@@ -148,14 +148,18 @@ body {
   "imports": {
     "three": "./lib/three-0.185.1/three.module.js",
     "@photo-sphere-viewer/core": "./lib/photo-sphere-viewer-5.15.1/core.js",
-    "@photo-sphere-viewer/markers-plugin": "./lib/photo-sphere-viewer-5.15.1/markers-plugin.js"
+    "@photo-sphere-viewer/markers-plugin": "./lib/photo-sphere-viewer-5.15.1/markers-plugin.js",
+    "@photo-sphere-viewer/gyroscope-plugin": "./lib/photo-sphere-viewer-5.15.1/gyroscope-plugin.js",
+    "@photo-sphere-viewer/stereo-plugin": "./lib/photo-sphere-viewer-5.15.1/stereo-plugin.js"
   }
 }
 </script>
 <script type="module">
 import { Viewer } from '@photo-sphere-viewer/core';
 import { MarkersPlugin } from '@photo-sphere-viewer/markers-plugin';
-import { Tour, Navigator, PlanView, placed, linkMarker, tagMarker, cursorMarker, tagHtml, viewOf, deg, LANG, keepClearOfPanel } from './js/tour.js';
+import { GyroscopePlugin } from '@photo-sphere-viewer/gyroscope-plugin';
+import { StereoPlugin } from '@photo-sphere-viewer/stereo-plugin';
+import { Tour, Navigator, PlanView, placed, linkMarker, tagMarker, cursorMarker, tagHtml, viewOf, deg, LANG, keepClearOfPanel, CardboardVR } from './js/tour.js';
 
 const $ = (id) => document.getElementById(id);
 function notice(msg) { $('notice-text').textContent = msg; $('notice').hidden = false; }
@@ -260,10 +264,10 @@ try {
     caption: first.name,
     defaultYaw: viewOf(first).yaw,
     defaultPitch: viewOf(first).pitch,
-    navbar: ['zoom', 'caption', 'fullscreen'],
+    navbar: ['zoom', 'caption', 'stereo', 'fullscreen'],   // stereo 按鈕只在有陀螺儀的手機、平板出現
     loadingTxt: '載入中…',
     lang: LANG,
-    plugins: [[MarkersPlugin, { markers: [] }]],
+    plugins: [[MarkersPlugin, { markers: [] }], [GyroscopePlugin, { touchmove: false }], StereoPlugin],
   });
 } catch (e) {
   notice('這個瀏覽器無法顯示全景（需要 WebGL），請改用新版 Chrome、Edge、Safari 或 Firefox。');
@@ -273,7 +277,9 @@ const markers = viewer.getPlugin(MarkersPlugin);
 
 viewer.addEventListener('position-updated', ({ position }) => plan.setView(deg(position.yaw)));
 
+let vr = null;
 function build(scene) {
+  if (vr?.on) return vr.markersFor(scene);
   const list = (scene.links || []).map((l, i) => linkMarker(tour, scene, l, i));
   (scene.tags || []).forEach((t, i) => list.push(tagMarker(t, i, { content: tagHtml(t, resolve) })));
   list.push(cursorMarker());
@@ -282,6 +288,7 @@ function build(scene) {
 
 const nav = new Navigator({ viewer, markers, tour, resolve, build, onChange: syncSelects });
 keepClearOfPanel(viewer, $('viewer'), () => [document.querySelector('.bar'), $('map')]);
+vr = new CardboardVR({ viewer, markers, gyro: viewer.getPlugin(GyroscopePlugin), stereo: viewer.getPlugin(StereoPlugin), nav, tour });
 
 viewer.addEventListener('ready', () => {
   nav.current = first;
@@ -291,12 +298,13 @@ viewer.addEventListener('ready', () => {
 }, { once: true });
 
 markers.addEventListener('select-marker', ({ marker }) => {
+  if (vr?.on) return;
   const d = marker.data || {};
   if (d.type === 'link') nav.walk(nav.current.links[d.index]);
 });
 
 viewer.addEventListener('click', ({ data: c }) => {
-  if (c.rightclick || nav.busy) return;
+  if (c.rightclick || nav.busy || vr?.on) return;
   const l = nav.linkToward(deg(c.yaw), deg(c.pitch));
   if (l) nav.walk(l);
 });

@@ -669,8 +669,280 @@ export class PlanView {
   }
 }
 
+/* ------------------------------------------------------------ Cardboard VR
+   用官方 Stereo 外掛把畫面分成左右眼，另外處理：
+   - 換場景時程式會「停止所有動作」，不讓它把 VR 和陀螺儀關掉
+   - 點螢幕（Cardboard 的按鈕）＝ 選目前看著的白圈，不是離開
+   - 白圈改用 3D 圖層，左右眼都看得到；注視 1.5 秒就走過去
+   - 低頭看「離開 VR」1.5 秒、或離開全螢幕（返回鍵），就結束 */
+const VR_DWELL = 1500;
+const VR_HIT = rad(7);
+const VR_EXIT_PITCH = rad(-80);
+const vrTex = new Map();
+function vrTexture(key, w, h, draw) {
+  if (vrTex.has(key)) return vrTex.get(key);
+  const c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  draw(c.getContext('2d'), w, h);
+  const url = c.toDataURL('image/png');
+  vrTex.set(key, url);
+  return url;
+}
+function vrLabel(g, text, x, y, maxW, size = 38) {
+  g.font = `700 ${size}px "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif`;
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  let t = String(text || '');
+  if (g.measureText(t).width > maxW) {
+    while (t.length > 1 && g.measureText(t + '…').width > maxW) t = t.slice(0, -1);
+    t += '…';
+  }
+  g.lineJoin = 'round';
+  g.lineWidth = 9;
+  g.strokeStyle = 'rgba(0, 0, 0, 0.75)';
+  g.strokeText(t, x, y);
+  g.fillStyle = '#fff';
+  g.fillText(t, x, y);
+}
+function vrRing(label, arrow) {
+  return vrTexture(`ring|${label}|${arrow}`, 256, 320, (g, w) => {
+    const cx = w / 2, cy = 118;
+    g.shadowColor = 'rgba(0, 0, 0, 0.6)';
+    g.shadowBlur = 10;
+    g.beginPath();
+    g.arc(cx, cy, 96, 0, Math.PI * 2);
+    g.fillStyle = 'rgba(255, 255, 255, 0.18)';
+    g.fill();
+    g.lineWidth = 14;
+    g.strokeStyle = '#fff';
+    g.stroke();
+    g.save();
+    g.translate(cx, cy);
+    g.rotate(rad(arrow || 0));
+    g.beginPath();
+    g.moveTo(-34, 16);
+    g.lineTo(0, -20);
+    g.lineTo(34, 16);
+    g.lineCap = 'round';
+    g.lineJoin = 'round';
+    g.stroke();
+    g.restore();
+    g.shadowBlur = 0;
+    vrLabel(g, label, cx, 282, w - 8);
+  });
+}
+function vrExitPlate() {
+  return vrTexture('exit', 320, 140, (g, w, h) => {
+    g.fillStyle = 'rgba(20, 24, 22, 0.82)';
+    g.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+    g.lineWidth = 6;
+    g.beginPath();
+    if (g.roundRect) g.roundRect(6, 6, w - 12, h - 12, 28); else g.rect(6, 6, w - 12, h - 12);
+    g.fill();
+    g.stroke();
+    vrLabel(g, '離開 VR', w / 2, h / 2, w - 30, 52);
+  });
+}
+function angDist(a, b) {
+  const c = Math.sin(a.pitch) * Math.sin(b.pitch) + Math.cos(a.pitch) * Math.cos(b.pitch) * Math.cos(a.yaw - b.yaw);
+  return Math.acos(Math.max(-1, Math.min(1, c)));
+}
+
+export class CardboardVR {
+  /**
+   * @param o.viewer  Photo Sphere Viewer
+   * @param o.markers Markers 外掛
+   * @param o.gyro    Gyroscope 外掛
+   * @param o.stereo  Stereo 外掛
+   * @param o.nav     Navigator
+   * @param o.tour    Tour
+   */
+  constructor(o) {
+    Object.assign(this, o);
+    this.on = false;
+    this.targets = [];
+    this.gaze = null;
+    this.elapsed = 0;
+    this.cool = 0;
+    this.loop = this.loop.bind(this);
+    const s0 = this.stereo.handleEvent.bind(this.stereo);
+    this.stereo.handleEvent = (e) => {
+      if (this.on && e.type === 'stop-all') return;
+      if (this.on && e.type === 'click') { this.tap(); return; }
+      s0(e);
+    };
+    const g0 = this.gyro.handleEvent.bind(this.gyro);
+    this.gyro.handleEvent = (e) => {
+      if (this.on && e.type === 'stop-all') return;
+      g0(e);
+    };
+    this.stereo.addEventListener('stereo-updated', (e) => this.setOn(e.stereoEnabled));
+    this.viewer.addEventListener('fullscreen', (e) => {
+      if (this.on && !e.fullscreenEnabled) this.stereo.stop();
+    });
+    this.reticles = [25, 75].map((x) => {
+      const el = document.createElement('div');
+      el.className = 'vr-reticle';
+      el.style.left = x + '%';
+      el.innerHTML = '<svg viewBox="0 0 40 40" aria-hidden="true"><circle class="bg" cx="20" cy="20" r="14"/>'
+        + '<circle class="fg" cx="20" cy="20" r="14" pathLength="100" stroke-dasharray="0 100"/><circle class="dot" cx="20" cy="20" r="3"/></svg>';
+      this.viewer.container.appendChild(el);
+      return el;
+    });
+  }
+
+  setOn(on) {
+    this.on = on;
+    document.body.classList.toggle('vr-on', on);
+    this.viewer.container.classList.toggle('vr-active', on);
+    this.gaze = null;
+    this.elapsed = 0;
+    this.last = 0;
+    this.cool = performance.now() + 800;
+    this.needRelease = true;
+    this.progress(0, false);
+    this.nav.hideCursor?.();
+    this.nav.refresh();
+    if (on) requestAnimationFrame(this.loop);
+  }
+
+  /* VR 裡的標記：白圈（3D 圖層＋目的地名稱）和正下方的「離開 VR」 */
+  markersFor(scene) {
+    const list = [];
+    this.targets = [];
+    (scene.links || []).forEach((l, i) => {
+      const g = linkGeom(this.tour, scene, l);
+      const t = this.tour.scene(l.to);
+      if (!g || !t) return;
+      const yaw = rad(g.yaw);
+      const pitch = rad(Math.max(-45, Math.min(45, g.pitch)));
+      const ta = this.tour.areaOf(t.id);
+      const label = t.name + (ta && ta !== this.tour.areaOf(scene.id) ? `（${ta.name}）` : '');
+      list.push({ id: 'vr-link-' + i, imageLayer: vrRing(label, Number(l.arrow) || 0), position: { yaw, pitch }, size: { width: 180, height: 225 }, data: { type: 'vr' } });
+      this.targets.push({ kind: 'link', link: l, yaw, pitch });
+    });
+    const yaw = this.viewer.getPosition().yaw;
+    this.exit = { kind: 'exit', yaw, pitch: VR_EXIT_PITCH };
+    list.push({ id: 'vr-exit', imageLayer: vrExitPlate(), position: { yaw, pitch: VR_EXIT_PITCH }, size: { width: 280, height: 123 }, rotation: { pitch: -VR_EXIT_PITCH }, data: { type: 'vr' } });
+    return list;
+  }
+
+  progress(p, hot) {
+    for (const r of this.reticles) {
+      r.querySelector('.fg').setAttribute('stroke-dasharray', `${Math.round(p * 100)} 100`);
+      r.classList.toggle('hot', !!hot);
+    }
+  }
+
+  loop(now) {
+    if (!this.on) return;
+    requestAnimationFrame(this.loop);
+    const dt = this.last ? Math.min(100, now - this.last) : 0;
+    this.last = now;
+    const p = this.viewer.getPosition();
+    /* 「離開 VR」跟著轉到面前的方向，低頭時字才是正的 */
+    if (p.pitch > rad(-45) && this.exit && Math.abs(p.yaw - this.exit.yaw) > 0.05 && now - (this.exitT || 0) > 300) {
+      this.exitT = now;
+      this.exit.yaw = p.yaw;
+      try {
+        this.markers.updateMarker({ id: 'vr-exit', position: { yaw: p.yaw, pitch: VR_EXIT_PITCH } }, false);
+        this.viewer.needsUpdate();
+      } catch (e) { /* 還沒建立 */ }
+    }
+    let best = null;
+    if (!this.nav.busy) {
+      if (p.pitch < rad(-65)) {
+        best = this.exit;
+      } else {
+        let bd = VR_HIT;
+        for (const t of this.targets) {
+          const d = angDist(p, t);
+          if (d < bd) { bd = d; best = t; }
+        }
+      }
+    }
+    /* 剛進 VR 或剛抵達時，要先把視線移開白圈一次，才開始計時（避免一抵達就又自動走） */
+    this.looking = best;
+    if (this.needRelease) {
+      if (!best && !this.nav.busy) this.needRelease = false;
+      best = null;
+    }
+    if (now < this.cool) best = null;
+    if (best !== this.gaze) {
+      this.gaze = best;
+      this.elapsed = 0;
+    } else if (best) {
+      this.elapsed += dt;
+    }
+    this.progress(best ? Math.min(1, this.elapsed / VR_DWELL) : 0, !!best);
+    if (best && this.elapsed >= VR_DWELL) {
+      this.gaze = null;
+      this.elapsed = 0;
+      this.act(best);
+    }
+  }
+
+  /* Cardboard 的按鈕：立刻選目前看著的目標 */
+  tap() {
+    if (this.gaze || this.looking) {
+      const t = this.gaze || this.looking;
+      this.gaze = null;
+      this.act(t);
+    } else {
+      this.viewer.notification.show({ content: '把中間的圓點對準白圈，看著約 1.5 秒就會走過去；低頭看「離開 VR」可以離開。', timeout: 3000 });
+    }
+  }
+
+  act(t) {
+    this.progress(0, false);
+    if (t.kind === 'exit') this.stereo.stop();
+    else this.walk(t.link);
+  }
+
+  /* VR 裡走過去：不轉動畫面（交給陀螺儀），淡入下一張，再把「現在看的方向」對到抵達方向 */
+  async walk(link) {
+    const nav = this.nav;
+    const from = nav.current;
+    const t = this.tour.scene(link.to);
+    if (!from || !t || nav.busy) return;
+    nav.busy = true;
+    this.cool = performance.now() + 1000;
+    try {
+      const arrive = arrivalPosition(this.tour, from, t, link);
+      this.markers.clearMarkers();
+      await this.viewer.setPanorama(nav.resolve(t.file), { caption: t.name, transition: { speed: 600, rotation: false, effect: 'fade' }, showLoader: true });
+      nav.current = t;
+      nav.arrivedBy = { from: from.id, index: (from.links || []).indexOf(link) };
+      this.face(arrive.yaw);
+      nav.refresh();
+      nav.onChange?.(t);
+      nav.preload(t);
+    } catch (e) {
+      console.error(e);
+      nav.refresh();
+    } finally {
+      nav.busy = false;
+      this.cool = performance.now() + 800;
+      this.needRelease = true;
+    }
+  }
+
+  /* 讓手機目前朝的方向對到 yaw（和陀螺儀外掛開始時的做法相同） */
+  face(yaw) {
+    const p = this.viewer.getPosition();
+    this.viewer.dynamics.position.setValue({ yaw, pitch: p.pitch });
+    if (this.gyro.controls) this.gyro.controls.alphaOffset = 0;
+    this.gyro.state.alphaOffset = null;
+    this.viewer.needsUpdate();
+  }
+}
+
 /* Photo Sphere Viewer 介面文字 */
 export const LANG = {
   zoom: '縮放', zoomOut: '縮小', zoomIn: '放大', fullscreen: '全螢幕', close: '關閉',
   twoFingers: '請用兩指移動畫面', ctrlZoom: '按住 Ctrl 再捲動可縮放', loadError: '全景圖載入失敗',
+  stereo: 'VR 眼鏡（Cardboard）', gyroscope: '陀螺儀',
+  stereoNotification: '看著白圈約 1.5 秒就會走過去；低頭看「離開 VR」或按返回鍵可以離開。',
+  pleaseRotate: '請把手機轉成橫向', tapToContinue: '（或點一下繼續）',
 };

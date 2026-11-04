@@ -94,6 +94,15 @@
 /* 標籤點開後的說明面板（Photo Sphere Viewer 側邊面板） */
 .tag-panel { font-family: var(--font-body); line-height: 1.75; }
 .tag-panel img { display: block; width: auto; height: auto; max-width: 100%; max-height: 260px; margin: 0 auto 12px; border-radius: 6px; }
+/* Cardboard VR：左右眼中央的準心，外圈是注視進度 */
+.vr-reticle { display: none; position: absolute; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; z-index: 95; pointer-events: none; }
+.vr-active .vr-reticle { display: block; }
+.vr-reticle svg { width: 100%; height: 100%; overflow: visible; transition: transform 0.15s; }
+.vr-reticle.hot svg { transform: scale(1.35); }
+.vr-reticle .bg { fill: none; stroke: rgba(255, 255, 255, 0.35); stroke-width: 3; }
+.vr-reticle .fg { fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 20px 20px; }
+.vr-reticle .dot { fill: #fff; stroke: rgba(0, 0, 0, 0.5); stroke-width: 1; }
+body.vr-on .bar, body.vr-on .map { display: none !important; }
 .under-panel { opacity: 0 !important; pointer-events: none !important; transition: opacity 0.15s; }
 .tag-panel h2 { margin: 4px 0 8px; font-size: 20px; letter-spacing: 0.04em; }
 .tag-panel p { margin: 0 0 6px; }
